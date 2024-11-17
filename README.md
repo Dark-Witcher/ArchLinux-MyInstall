@@ -1,3 +1,3 @@
 # ArchLinux-MyInstall
 
-## This repository contains a cript that performs the entire inital install and setup for my Arch Linux
+## This repository contains a script that performs the setup for my Hyprland Arch Linux install
