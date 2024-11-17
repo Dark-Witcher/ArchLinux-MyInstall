@@ -4,6 +4,10 @@
 
 yay -Sy oh-my-posh
 
+mv bashrc .bashrc
+
+mv aliases .aliases
+
 cp .bashrc ~/
 
 cp .aliases ~/
