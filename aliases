@@ -1,0 +1,4 @@
+alias update='clear && sudo pacman -Syu && yay -Syu'
+alias fetch='clear && fastfetch'
+alias reboot='systemctl reboot'
+alias off='systemctl poweroff'

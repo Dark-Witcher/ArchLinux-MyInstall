@@ -1,0 +1,21 @@
+[font]
+normal = {family = "FiraCode Nerd Font Mono", style="Regular"}
+italic = {family = "FiraCode Nerd Font Mono", style="Italic"}
+bold_italic = {family = "FiraCode Nerd Font Mono", style="Bold Italic"}
+bold = {family = "FiraCode Nerd Font Mono", style="Bold"}
+size = 11
+builtin_box_drawing = true
+
+[window]
+opacity=0.85
+blur=true
+decorations="None"
+padding={x=8, y=10}
+decorations_theme_variant = "Dark"
+
+[scrolling]
+history=100000
+multiplier=2
+
+[cursor]
+style={shape="Beam", blinking="On"}
