@@ -1,9 +1,9 @@
 [font]
-normal = {family = "FiraCode Nerd Font Mono", style="Regular"}
-italic = {family = "FiraCode Nerd Font Mono", style="Italic"}
-bold_italic = {family = "FiraCode Nerd Font Mono", style="Bold Italic"}
-bold = {family = "FiraCode Nerd Font Mono", style="Bold"}
-size = 11
+normal = {family = "DejaVuSansM Nerd Font", style="Regular"}
+italic = {family = "DejaVuSansM Nerd Font", style="Italic"}
+bold_italic = {family = "DejaVuSansM Nerd Font", style="Bold Italic"}
+bold = {family = "DejaVuSansM Nerd Font", style="Bold"}
+size = 12
 builtin_box_drawing = true
 
 [window]
@@ -19,3 +19,9 @@ multiplier=2
 
 [cursor]
 style={shape="Beam", blinking="On"}
+
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/MonaLisa.toml"
+]
+
