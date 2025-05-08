@@ -1,0 +1,23 @@
+import = ["~/.config/alacritty/themes/themes/Nord.toml"]
+
+[font]
+normal = {family = "DejaVuSansM Nerd Font", style="Regular"}
+italic = {family = "DejaVuSansM Nerd Font", style="Italic"}
+bold_italic = {family = "DejaVuSansM Nerd Font", style="Bold Italic"}
+bold = {family = "DejaVuSansM Nerd Font", style="Bold"}
+size = 12
+builtin_box_drawing = true
+
+[window]
+opacity=0.85
+blur=true
+decorations="None"
+padding={x=8, y=10}
+decorations_theme_variant = "Dark"
+
+[scrolling]
+history=100000
+multiplier=2
+
+[cursor]
+style={shape="Beam", blinking="On"}
