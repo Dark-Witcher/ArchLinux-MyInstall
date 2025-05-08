@@ -1,3 +1,5 @@
+import = ["~/.config/alacritty/themes/themes/Nord.toml"]
+
 [font]
 normal = {family = "DejaVuSansM Nerd Font", style="Regular"}
 italic = {family = "DejaVuSansM Nerd Font", style="Italic"}
@@ -19,9 +21,3 @@ multiplier=2
 
 [cursor]
 style={shape="Beam", blinking="On"}
-
-[general]
-import = [
-    "~/.config/alacritty/themes/themes/MonaLisa.toml"
-]
-
