@@ -1,26 +1,47 @@
+[general]
+import = [
+  "~/.config/alacritty/themes/themes/Nord.toml"
+]
+
 [font]
-normal = {family = "DejaVuSansM Nerd Font", style="Regular"}
-italic = {family = "DejaVuSansM Nerd Font", style="Italic"}
-bold_italic = {family = "DejaVuSansM Nerd Font", style="Bold Italic"}
-bold = {family = "DejaVuSansM Nerd Font", style="Bold"}
 size = 12
 builtin_box_drawing = true
 
+[font.offset]
+x = 0
+y = 0
+
+[font.glyph_offset]
+x = 0
+y = 0 # Half of offset.y to vertically center glyphs
+
+[font.normal]
+ family = "DejaVuSansM Nerd Font"
+style  = "Regular"
+
+[font.bold]
+ family = "DejaVuSansM Nerd Font"
+style  = "Bold"
+
+[font.italic]
+ family = "DejaVuSansM Nerd Font"
+style  = "Italic"
+
+[font.bold_italic]
+#family = "Ndot57"
+ family = "DejaVuSansM Nerd Font"
+style  = "Bold Italic"
+
 [window]
-opacity=0.85
-blur=true
-decorations="None"
-padding={x=8, y=10}
+opacity = 0.85
+blur = true
+decorations = "None"
 decorations_theme_variant = "Dark"
+padding = { x = 8, y = 10 }
 
 [scrolling]
-history=100000
-multiplier=2
+history = 100000
+multiplier = 2
 
 [cursor]
-style={shape="Beam", blinking="On"}
-
-[general]
-import = [
-    "~/.config/alacritty/themes/themes/Nord.toml"
-]
+style = { shape = "Beam", blinking = "On" }

@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# System
+# -----------------------------------------------------------------------------
+
+alias update='clear && paru -Syyu'
+alias reboot='systemctl reboot'
+alias off='systemctl poweroff'
+
+# -----------------------------------------------------------------------------
+# Utilities
+# -----------------------------------------------------------------------------
+
+alias fetch='clear && fastfetch'
+
+# -----------------------------------------------------------------------------
+# Privilege / environment
+# -----------------------------------------------------------------------------
+
+alias suw='sudo --preserve-env=WAYLAND_DISPLAY,XDG_RUNTIME_DIR,XDG_SESSION_TYPE,XDG_CURRENT_DESKTOP'
+
+# -----------------------------------------------------------------------------
+# USBGuard
+# -----------------------------------------------------------------------------
+
+alias usb='sudo usbguard list-devices'
+alias usb-a='sudo usbguard allow-device'
+alias usb-b='sudo usbguard block-device'
+alias usb-r='sudo usbguard list-rules'
