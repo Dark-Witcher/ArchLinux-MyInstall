@@ -1,0 +1,16 @@
+# Shell scripts and shell configuration
+*.sh linguist-language=Shell
+.bashrc linguist-language=Shell
+.aliases linguist-language=Shell
+
+# Configuration/data files
+*.toml linguist-detectable=false
+*.json linguist-detectable=false
+*.jsonc linguist-detectable=false
+*.txt linguist-detectable=false
+
+# Documentation
+*.md linguist-detectable=false
+
+# License
+LICENSE.md linguist-detectable=false
