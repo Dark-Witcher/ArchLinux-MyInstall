@@ -45,6 +45,24 @@ config.scrollback_lines = 100000
 -- Cursor
 config.default_cursor_style = 'BlinkingBar'
 
+
+-----------------------------------------------------------
+-- MOUSE
+-----------------------------------------------------------
+
+config.mouse_bindings = {
+    {
+        event = {
+            Down = {
+                streak = 1,
+                button = 'Right',
+            },
+        },
+        mods = 'NONE',
+        action = wezterm.action.PasteFrom 'Clipboard',
+    },
+}
+
 -----------------------------------------------------------
 -- TABS
 -----------------------------------------------------------
