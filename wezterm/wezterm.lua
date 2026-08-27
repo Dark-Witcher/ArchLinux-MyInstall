@@ -13,6 +13,7 @@ config.font = wezterm.font_with_fallback {
         italic = false,
     },
 }
+
 config.font_size = 12
 config.line_height = 1.0
 config.harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' }
@@ -22,9 +23,7 @@ config.window_decorations = 'NONE'
 config.window_background_opacity = 0.85
 config.text_background_opacity = 0.85
 
--- NOTE: macOS-only blur option removed; on Linux blur is compositor-driven.
-
--- Dark-themed decorations variant
+-- Window frame
 config.window_frame = {
     active_titlebar_bg = '#2e3440',
     inactive_titlebar_bg = '#2e3440',
@@ -46,75 +45,128 @@ config.scrollback_lines = 100000
 -- Cursor
 config.default_cursor_style = 'BlinkingBar'
 
--- Tabs: keep them, Nord-ish look, compact
+-----------------------------------------------------------
+-- TABS
+-----------------------------------------------------------
+
 config.use_fancy_tab_bar = true
 config.show_tabs_in_tab_bar = true
 config.show_new_tab_button_in_tab_bar = true
 
--- Optional: Nord-style tab colors
-config.colors = config.colors or {}
-config.colors.tab_bar = {
-    background = '#2e3440',
+config.colors = {
+    tab_bar = {
+        background = '#2e3440',
 
-    active_tab = {
-        bg_color = '#4c566a',
-        fg_color = '#eceff4',
-        intensity = 'Normal',
-        underline = 'None',
-        italic = false,
-        strikethrough = false,
-    },
+        active_tab = {
+            bg_color = '#4c566a',
+            fg_color = '#eceff4',
+            intensity = 'Normal',
+            underline = 'None',
+            italic = false,
+            strikethrough = false,
+        },
 
-    inactive_tab = {
-        bg_color = '#3b4252',
-        fg_color = '#d8dee9',
-        intensity = 'Normal',
-        underline = 'None',
-        italic = false,
-        strikethrough = false,
-    },
+        inactive_tab = {
+            bg_color = '#3b4252',
+            fg_color = '#d8dee9',
+            intensity = 'Normal',
+            underline = 'None',
+            italic = false,
+            strikethrough = false,
+        },
 
-    inactive_tab_hover = {
-        bg_color = '#434c5e',
-        fg_color = '#eceff4',
-        italic = false,
-    },
+        inactive_tab_hover = {
+            bg_color = '#434c5e',
+            fg_color = '#eceff4',
+            italic = false,
+        },
 
-    new_tab = {
-        bg_color = '#2e3440',
-        fg_color = '#d8dee9',
-    },
+        new_tab = {
+            bg_color = '#2e3440',
+            fg_color = '#d8dee9',
+        },
 
-    new_tab_hover = {
-        bg_color = '#434c5e',
-        fg_color = '#eceff4',
-        italic = false,
+        new_tab_hover = {
+            bg_color = '#434c5e',
+            fg_color = '#eceff4',
+            italic = false,
+        },
     },
 }
 
--- Helper: basename of a path string
-local function basename(path)
-return path:gsub('(.*[/\\])(.*)', '%2')
-end
+-----------------------------------------------------------
+-- TAB TITLE
+--
+-- Idle:
+--     ubuntu-server-toolkit
+--
+-- Running command:
+--     git status
+--
+-- The shell's own terminal title is ignored.
+-----------------------------------------------------------
 
--- Set tab title to current working directory basename
--- Set tab title to current command, falling back to directory
-wezterm.on('format-tab-title', function(tab, tabs, panes, cfg, hover, max_width)
+wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
 local pane = tab.active_pane
 
-local title = pane and pane.title or ''
+if not pane then
+    return {}
+    end
 
-if title == '' then
-    local cwd = pane and pane.current_working_dir or nil
-    local cwd_str = cwd and tostring(cwd) or ''
+    -------------------------------------------------------
+    -- Current working directory
+    -------------------------------------------------------
 
-cwd_str = cwd_str:gsub('^file://', '')
-title = basename(cwd_str)
+    local cwd = pane.current_working_dir
+
+    if cwd then
+        cwd = tostring(cwd)
+
+        -- Remove file:// prefix
+        cwd = cwd:gsub('^file://[^/]*', '')
+
+        -- Decode spaces
+        cwd = cwd:gsub('%%20', ' ')
+        else
+            cwd = ''
 end
 
-if title == '' then
-    title = 'shell'
+-- Get directory name only
+local folder = cwd:match('([^/]+)/?$') or cwd
+
+-------------------------------------------------------
+-- Currently executing command
+-------------------------------------------------------
+
+local command = ''
+
+if pane.user_vars then
+    command = pane.user_vars.WEZTERM_PROG or ''
 end
+
+-------------------------------------------------------
+-- Decide title
+-------------------------------------------------------
+
+local title
+
+if command ~= '' then
+    title = command
+    else
+        title = folder
+        end
+
+        -------------------------------------------------------
+        -- Fallback
+        -------------------------------------------------------
+
+        if title == '' then
+            title = 'terminal'
+end
+
+-------------------------------------------------------
+-- Tab title
+-------------------------------------------------------
 
 return {
     { Text = ' ' .. title .. ' ' },
@@ -122,3 +174,29 @@ return {
 end)
 
 return config
+
+
+-----------------------------------------------------------
+-- SYSTEM CONFIGURATION NOTE
+--
+-- WezTerm tab titles are controlled by this configuration.
+-- The default Bash configuration on this system also sets
+-- the terminal title via /etc/bash.bashrc, which overrides
+-- the tab title behavior above.
+--
+-- If tabs show:
+--     username@hostname:path
+--
+-- edit:
+--     /etc/bash.bashrc
+--
+-- and comment out these two lines:
+--
+--     PROMPT_COMMAND+=('printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"')
+--     PROMPT_COMMAND+=('printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"')
+--
+-- Then start a new terminal session.
+--
+-- These lines are intentionally disabled because they cause
+-- Bash to overwrite the WezTerm tab title.
+-----------------------------------------------------------
